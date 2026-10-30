@@ -1,0 +1,8 @@
+// Cheap 2D -> 1D hash, stable across GPUs for small integer inputs.
+float hash21(vec2 p) {
+  p = fract(p * vec2(123.34, 456.21));
+  p += dot(p, p + 45.32);
+  return fract(p.x * p.y);
+}
+
+#pragma glslify: export(hash21)
