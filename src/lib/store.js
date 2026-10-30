@@ -7,23 +7,28 @@ export const state = {
   intro: false,
   heroIntro: 0,
   glReady: false,
-  preview: { show: 0, index: 0 },
 };
 
+// kind tells the surface shader which texture to give the field.
 export const THEMES = {
-  blue: { bg: "#0000ff", accent: "#3b3bff" },
-  dark: { bg: "#0f0f10", accent: "#0000ff" },
-  light: { bg: "#ececec", accent: "#0000ff" },
+  blue: { bg: "#0000ff", accent: "#3b3bff", kind: 0 },
+  dark: { bg: "#0f0f10", accent: "#0000ff", kind: 1 },
+  light: { bg: "#ececec", accent: "#0000ff", kind: 2 },
+};
+
+export const PALETTE = {
+  blue: "#0000ff",
+  red: "#ea4f3d",
+  ink: "#0f0f10",
+  greyDark: "#302f32",
+  grey: "#ececec",
+  off: "#f5f5f5",
+  card: "#19191b",
 };
 
 export function hexToRgb(hex) {
   const v = parseInt(hex.replace("#", ""), 16);
   return [((v >> 16) & 255) / 255, ((v >> 8) & 255) / 255, (v & 255) / 255];
-}
-
-export function setPreview(show, index) {
-  state.preview.show = show;
-  if (index !== undefined) state.preview.index = index;
 }
 
 export const lerp = (a, b, t) => a + (b - a) * t;

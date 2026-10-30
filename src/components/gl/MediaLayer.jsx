@@ -9,27 +9,8 @@ import * as THREE from "three";
 import vert from "@/shaders/media.vert";
 import frag from "@/shaders/media.frag";
 import { getMediaSnapshot, getServerSnapshot, subscribeMedia } from "@/lib/media";
-import { clamp, damp, hexToRgb, state } from "@/lib/store";
-
-const textures = new Map();
-const loader = new THREE.TextureLoader();
-
-function loadTexture(src) {
-  if (!textures.has(src)) {
-    textures.set(
-      src,
-      new Promise((resolve) => {
-        loader.load(src, (tex) => {
-          tex.minFilter = THREE.LinearMipmapLinearFilter;
-          tex.magFilter = THREE.LinearFilter;
-          tex.anisotropy = 4;
-          resolve(tex);
-        });
-      })
-    );
-  }
-  return textures.get(src);
-}
+import { clamp, damp, hexToRgb, PALETTE, state } from "@/lib/store";
+import { loadTexture } from "./textures";
 
 let sharedGeometry = null;
 const getGeometry = () => (sharedGeometry ??= new THREE.PlaneGeometry(1, 1, 24, 24));
@@ -54,14 +35,18 @@ function MediaPlane({ item }) {
         fragmentShader: frag,
         uniforms: {
           uTexture: { value: null },
+          uTexture2: { value: null },
           uImageSize: { value: new THREE.Vector2(1, 1) },
+          uImageSize2: { value: new THREE.Vector2(1, 1) },
           uPlaneSize: { value: new THREE.Vector2(1, 1) },
           uHover: { value: 0 },
           uReveal: { value: 0 },
           uShift: { value: 0 },
           uLoaded: { value: 0 },
+          uLoaded2: { value: 0 },
+          uTime: { value: 0 },
           uMouse: { value: new THREE.Vector2(0.5, 0.5) },
-          uTint: { value: new THREE.Vector3(...hexToRgb("#0000ff")) },
+          uTint: { value: new THREE.Vector3(...hexToRgb(PALETTE.blue)) },
           uBend: { value: 0 },
           uAxis: { value: item.axis === "x" ? 1 : 0 },
           uParallax: { value: new THREE.Vector2(0, 0) },
@@ -73,16 +58,26 @@ function MediaPlane({ item }) {
 
   useEffect(() => {
     let alive = true;
+    const u = material.uniforms;
     loadTexture(item.src).then((tex) => {
       if (!alive) return;
-      material.uniforms.uTexture.value = tex;
-      material.uniforms.uImageSize.value.set(tex.image.width, tex.image.height);
+      u.uTexture.value = tex;
+      u.uImageSize.value.set(tex.image.width, tex.image.height);
       anim.current.loaded = 1;
     });
+    // The hover shot is optional; without it the wipe has nothing to reveal.
+    if (item.hoverSrc) {
+      loadTexture(item.hoverSrc).then((tex) => {
+        if (!alive) return;
+        u.uTexture2.value = tex;
+        u.uImageSize2.value.set(tex.image.width, tex.image.height);
+        u.uLoaded2.value = 1;
+      });
+    }
     return () => {
       alive = false;
     };
-  }, [item.src, material]);
+  }, [item.src, item.hoverSrc, material]);
 
   useEffect(() => {
     const node = item.el;
@@ -97,7 +92,7 @@ function MediaPlane({ item }) {
     };
   }, [item.el]);
 
-  useFrame((_, dt) => {
+  useFrame((st, dt) => {
     const m = mesh.current;
     if (!m) return;
     const r = item.el.getBoundingClientRect();
@@ -110,6 +105,7 @@ function MediaPlane({ item }) {
     m.position.set(r.left + r.width / 2 - size.width / 2, -(r.top + r.height / 2 - size.height / 2), 0);
     m.scale.set(r.width, r.height, 1);
     u.uPlaneSize.value.set(r.width, r.height);
+    u.uTime.value = st.clock.elapsedTime;
 
     const inView = r.top < size.height * 0.95 && r.bottom > 0 && r.left < size.width * 0.98;
     if (inView && state.intro) a.reveal = Math.min(1, a.reveal + dt / 1.8);
@@ -121,10 +117,10 @@ function MediaPlane({ item }) {
     if (item.axis === "x") u.uParallax.value.set(clamp((r.left + r.width / 2 - size.width / 2) / size.width, -1, 1), 0);
     else u.uParallax.value.set(0, clamp((r.top + r.height / 2 - size.height / 2) / size.height, -1, 1));
 
-    a.hover = damp(a.hover, a.hoverTarget, 4, dt);
+    a.hover = damp(a.hover, a.hoverTarget, a.hoverTarget ? 2.2 : 3.2, dt);
     u.uHover.value = a.hover;
     a.mouse.set((state.mouse.x - r.left) / r.width, 1 - (state.mouse.y - r.top) / r.height);
-    u.uMouse.value.lerp(a.mouse, 1 - Math.exp(-8 * dt));
+    u.uMouse.value.lerp(a.mouse, 1 - Math.exp(-6 * dt));
 
     a.vel = damp(a.vel, state.velocity, 6, dt);
     u.uBend.value = clamp(-a.vel * 0.001, -0.1, 0.1);

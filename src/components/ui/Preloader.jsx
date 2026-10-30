@@ -57,7 +57,7 @@ export default function Preloader() {
   useEffect(() => {
     if (!grid) return;
     const cells = root.current.querySelectorAll(".preloader__cell");
-    const urls = CASES.map((c) => c.images[0]);
+    const urls = CASES.map((c) => c.cover);
     let loaded = 0;
     const steps = urls.length + 2;
     const prog = { p: 0 };

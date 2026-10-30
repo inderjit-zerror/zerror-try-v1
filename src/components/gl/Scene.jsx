@@ -9,7 +9,7 @@ import { state } from "@/lib/store";
 import Surface from "./Surface";
 import PixelLogo from "./PixelLogo";
 import MediaLayer from "./MediaLayer";
-import ServicePreview from "./ServicePreview";
+import FieldLayer from "./FieldLayer";
 
 const CAM_Z = 1000;
 
@@ -46,10 +46,10 @@ export default function Scene() {
     >
       <PixelCamera />
       <Surface />
+      <FieldLayer />
       <PixelLogo target="#hero-logo" mode="hero" />
       <PixelLogo target="#footer-logo" mode="footer" />
       <MediaLayer />
-      <ServicePreview />
     </Canvas>
   );
 }

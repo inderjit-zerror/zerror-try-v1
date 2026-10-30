@@ -5,12 +5,11 @@ import Cursor from "@/components/ui/Cursor";
 import Header from "@/components/ui/Header";
 import ContactModal from "@/components/ui/ContactModal";
 import Hero from "@/components/sections/Hero";
-import Manifesto from "@/components/sections/Manifesto";
-import Services from "@/components/sections/Services";
+import Intro from "@/components/sections/Intro";
 import Work from "@/components/sections/Work";
-import Stats from "@/components/sections/Stats";
-import Studio from "@/components/sections/Studio";
+import Services from "@/components/sections/Services";
 import Process from "@/components/sections/Process";
+import Numbers from "@/components/sections/Numbers";
 import Zcom from "@/components/sections/Zcom";
 import Clients from "@/components/sections/Clients";
 import Footer from "@/components/sections/Footer";
@@ -24,12 +23,11 @@ export default function Home() {
       <div className="site">
         <main>
           <Hero />
-          <Manifesto />
-          <Services />
+          <Intro />
           <Work />
-          <Stats />
-          <Studio />
+          <Services />
           <Process />
+          <Numbers />
           <Zcom />
           <Clients />
         </main>

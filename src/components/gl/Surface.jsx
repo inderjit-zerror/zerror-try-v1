@@ -68,6 +68,7 @@ export default function Surface() {
           uTops: { value: new Array(MAX_SECTIONS).fill(1e6) },
           uColors: { value: Array.from({ length: MAX_SECTIONS }, () => new THREE.Vector3(...hexToRgb(THEMES.blue.bg))) },
           uAccents: { value: Array.from({ length: MAX_SECTIONS }, () => new THREE.Vector3(...hexToRgb(THEMES.blue.accent))) },
+          uKinds: { value: new Array(MAX_SECTIONS).fill(THEMES.blue.kind) },
           uCount: { value: 1 },
           uTrail: { value: null },
         },
@@ -98,6 +99,7 @@ export default function Surface() {
         const theme = THEMES[el.dataset.theme] ?? THEMES.dark;
         u.uColors.value[i].set(...hexToRgb(theme.bg));
         u.uAccents.value[i].set(...hexToRgb(theme.accent));
+        u.uKinds.value[i] = theme.kind;
       });
       u.uCount.value = Math.max(1, els.length);
     };

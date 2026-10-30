@@ -6,10 +6,11 @@ import { scrollToTarget } from "@/lib/scroll";
 import { emit } from "@/lib/store";
 import { CONTACT } from "@/data/content";
 import Logo from "../ui/Logo";
-import Reveal from "../ui/Reveal";
+import GLField from "../ui/GLField";
 import Magnetic from "../ui/Magnetic";
 import RollText from "../ui/RollText";
 import Clock from "../ui/Clock";
+import SectionBar from "../ui/SectionBar";
 
 export default function Footer() {
   const root = useRef(null);
@@ -32,20 +33,27 @@ export default function Footer() {
 
   useGSAP(
     () => {
-      gsap.from(".footer__col", {
-        y: 40,
-        opacity: 0,
-        duration: 1,
+      gsap.from(".footer__line > span", {
+        yPercent: 110,
+        duration: 1.4,
         ease: "zr",
-        stagger: 0.07,
-        scrollTrigger: { trigger: ".footer__cols", start: "top 90%", once: true },
+        stagger: 0.08,
+        scrollTrigger: { trigger: ".footer__headline", start: "top 85%", once: true },
       });
       gsap.from(".footer__circle", {
         scale: 0,
         rotation: -90,
         duration: 1.4,
         ease: "zr",
-        scrollTrigger: { trigger: ".footer__actions", start: "top 85%", once: true },
+        scrollTrigger: { trigger: ".footer__actions", start: "top 90%", once: true },
+      });
+      gsap.from(".footer__col", {
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        ease: "zr",
+        stagger: 0.07,
+        scrollTrigger: { trigger: ".footer__cols", start: "top 92%", once: true },
       });
     },
     { scope: root }
@@ -53,11 +61,19 @@ export default function Footer() {
 
   return (
     <footer id="contact" ref={root} className="footer" data-theme="blue">
+      <SectionBar no="08" label="Contact" aside={<Clock prefix="Mumbai" />} />
+
       <div className="footer__cta">
-        <span className="t-label">(Let&apos;s build together)</span>
-        <Reveal as="h2" className="t-xl footer__headline">
-          For founders who move fast and brands that refuse to look average.
-        </Reveal>
+        <h2 className="footer__headline">
+          <span className="footer__line">
+            <span>Let&apos;s build</span>
+          </span>
+          <span className="footer__line">
+            <span>
+              something <em>precise.</em>
+            </span>
+          </span>
+        </h2>
         <div className="footer__actions">
           <Magnetic strength={0.4}>
             <button type="button" className="footer__circle" onClick={() => emit("contact:open")} data-cursor="hidden">
@@ -84,6 +100,10 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
+      <GLField effect="wave" className="footer__wave" aria-hidden="true">
+        <span className="t-label footer__wave-hint">[ Move to bend the signal ]</span>
+      </GLField>
 
       <div className="footer__cols">
         <div className="footer__col">
@@ -112,9 +132,16 @@ export default function Footer() {
           ))}
         </div>
         <div className="footer__col">
-          <span className="t-label">Local time</span>
-          <Clock prefix="Mumbai" />
-          <span className="footer__muted">Working with founders worldwide</span>
+          <span className="t-label">Sitemap</span>
+          <button type="button" onClick={() => scrollToTarget("#work")}>
+            <RollText text="Work" />
+          </button>
+          <button type="button" onClick={() => scrollToTarget("#services")}>
+            <RollText text="Capabilities" />
+          </button>
+          <button type="button" onClick={() => scrollToTarget("#zcom")}>
+            <RollText text="Zcom" />
+          </button>
         </div>
       </div>
 

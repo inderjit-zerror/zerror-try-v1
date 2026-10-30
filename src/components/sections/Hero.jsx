@@ -68,7 +68,7 @@ export default function Hero() {
           <p className="t-label hero__fade">Websites / eCommerce / Software / Brand</p>
           <p className="t-label hero__fade hero__hint">[ Move the cursor to break the system ]</p>
         </div>
-        <button type="button" className="hero__scroll hero__fade t-label" onClick={() => scrollToTarget("#manifesto")}>
+        <button type="button" className="hero__scroll hero__fade t-label" onClick={() => scrollToTarget("#studio")}>
           Scroll <span className="hero__scroll-line" />
         </button>
       </div>

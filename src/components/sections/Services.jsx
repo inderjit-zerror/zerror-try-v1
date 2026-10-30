@@ -1,99 +1,98 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
-import { setPreview } from "@/lib/store";
-import { SERVICES } from "@/data/content";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { SERVICES, SERVICES_INTRO } from "@/data/content";
+import GLField from "../ui/GLField";
 import Reveal from "../ui/Reveal";
-import Marquee from "../ui/Marquee";
-import RollText from "../ui/RollText";
+import SectionBar from "../ui/SectionBar";
 
+// Capabilities. A sticky shader panel on the left changes scene with a
+// pixel dissolve as each service passes the middle of the screen.
 export default function Services() {
   const root = useRef(null);
-  const [active, setActive] = useState(-1);
+  const [active, setActive] = useState(0);
 
   useGSAP(
     () => {
-      gsap.from(".service", {
-        yPercent: 40,
+      gsap.utils.toArray(".svc").forEach((el, i) => {
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top 55%",
+          end: "bottom 55%",
+          onToggle: (self) => self.isActive && setActive(i),
+        });
+      });
+      gsap.from(".svc__title", {
+        y: 60,
         opacity: 0,
-        duration: 1.4,
+        duration: 1.2,
         ease: "zr",
         stagger: 0.1,
-        clearProps: "opacity,transform",
-        scrollTrigger: { trigger: ".services__list", start: "top 85%", once: true },
+        scrollTrigger: { trigger: ".services__list", start: "top 80%", once: true },
       });
     },
     { scope: root }
   );
 
-  const canHover = () => window.matchMedia("(hover: hover)").matches;
-  const enter = (i) => {
-    if (!canHover()) return;
-    setActive(i);
-    setPreview(1, i);
-  };
-  const leaveList = () => {
-    setPreview(0);
-    if (canHover()) setActive(-1);
-  };
+  const current = SERVICES[active];
 
   return (
-    <section id="services" ref={root} className="services" data-theme="dark">
-      <div className="services__head">
-        <span className="t-label">(Services)</span>
+    <section id="services" ref={root} className="services" data-theme="blue">
+      <SectionBar no="03" label="Capabilities" aside="Design / Build / Grow" />
+
+      <header className="services__head">
         <Reveal as="h2" className="t-xl services__title">
-          Everything a brand needs. One studio.
+          {SERVICES_INTRO.title}
         </Reveal>
-        <p className="services__intro">
-          Design-led and engineering-backed. Identity, platforms and growth treated as one connected system, so
-          nothing gets lost in a hand-off.
-        </p>
-      </div>
+        <p className="services__intro">{SERVICES_INTRO.text}</p>
+      </header>
 
-      <ul className={`services__list ${active > -1 ? "has-active" : ""}`} onPointerLeave={leaveList}>
-        {SERVICES.map((s, i) => (
-          <li
-            key={s.no}
-            className={`service ${active === i ? "is-active" : ""}`}
-            onPointerEnter={() => enter(i)}
-            data-cursor="explore"
-            data-cursor-label="Explore"
-          >
-            <span className="service__line" aria-hidden="true" />
-            <button
-              type="button"
-              className="service__row"
-              aria-expanded={active === i}
-              onClick={() => setActive((a) => (a === i ? -1 : i))}
-            >
-              <span className="service__no">{s.no}</span>
-              <span className="service__title">{s.title}</span>
-              <span className="service__short t-label">
-                <RollText text={s.short} />
-              </span>
-              <span className="service__plus" aria-hidden="true" />
-            </button>
-            <div className="service__body">
-              <div className="service__inner">
-                <p className="service__text">{s.text}</p>
-                <ul className="service__tags">
-                  {s.tags.map((t, j) => (
-                    <li key={t} style={{ "--j": j }}>
-                      {t}
-                    </li>
-                  ))}
-                </ul>
+      <div className="services__body">
+        <div className="services__stage">
+          <GLField effect="services" data-active={active} className="services__panel" aria-hidden="true">
+            <span className="services__fig t-label tnum">
+              Fig. {current.no} / {current.type}
+            </span>
+            <span className="services__corner services__corner--tl" />
+            <span className="services__corner services__corner--br" />
+          </GLField>
+          <div className="services__dots" aria-hidden="true">
+            {SERVICES.map((s, i) => (
+              <span key={s.no} className={i === active ? "is-on" : ""} />
+            ))}
+          </div>
+        </div>
+
+        <ol className="services__list">
+          {SERVICES.map((s, i) => (
+            <li key={s.no} className={`svc ${i === active ? "is-active" : ""}`} onClick={() => setActive(i)}>
+              <div className="svc__top t-label">
+                <span className="tnum">{s.no}</span>
+                <span>{s.kicker}</span>
               </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      <Marquee
-        className="services__marquee"
-        items={["Websites", "eCommerce", "Custom software", "Headless CMS", "Brand identity", "Motion", "SEO", "Growth"]}
-      />
+              <h3 className="svc__title">{s.title}</h3>
+              <p className="svc__tagline t-m">{s.tagline}</p>
+              <p className="svc__text">{s.text}</p>
+              <ul className="svc__tags">
+                {s.tags.map((t) => (
+                  <li key={t} className="t-label">
+                    {t}
+                  </li>
+                ))}
+              </ul>
+              <dl className="svc__metrics">
+                {s.metrics.map((m) => (
+                  <div key={m.label}>
+                    <dd className="tnum">{m.value}</dd>
+                    <dt className="t-label">{m.label}</dt>
+                  </div>
+                ))}
+              </dl>
+            </li>
+          ))}
+        </ol>
+      </div>
     </section>
   );
 }

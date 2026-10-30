@@ -17,151 +17,179 @@ export const NAV = [
   { label: "Contact", href: "#contact" },
 ];
 
-// Segments wrapped in *asterisks* are the emphasised part of each statement.
-export const MANIFESTO = [
+// Copy follows zerrorstudios.com (home, about, work and the four expertise pages).
+
+export const STUDIO = {
+  lead: "A design-led tech studio in Mumbai. Since 2022 we have built brands, websites, stores and software for publishers, film houses, fashion labels and founders on day one.",
+};
+
+// The intro statement. Strings are words; { chip } marks an inline shader pill.
+export const STATEMENT = [
+  "We", "design", { chip: 0 }, "and", "engineer", { chip: 1 }, "brands", "as", "one", "system.",
+  "Clarity", "over", "excess,", "structure", "over", "noise", { chip: 2 }, "and", "precision", "in", "every", "pixel.",
+];
+
+// From the brand book: vision, mission, philosophy.
+export const PRINCIPLES = [
   {
-    label: "The problem",
-    text: "Great ideas often get lost between *design and development.* Few can do both, fewer still do it fast.",
+    title: "Systems",
+    text: "Design and technology as one unified system. Every interaction purposeful, scalable and built to last.",
   },
   {
-    label: "The solution",
-    text: "*We built Zerror to erase that gap.* When design and tech move as one, ideas don't just survive, they shine.",
+    title: "Structure",
+    text: "Design treated as a system: structured, intentional and built to scale. Every element exists with reason.",
   },
   {
-    label: "Our belief",
-    text: "Design shouldn't fight development. *We bring both together, seamlessly, quickly and with intent.*",
+    title: "Precision",
+    text: "Solutions that are precise and performance-driven. Every output functional, adaptable and built to perform.",
   },
 ];
+
+export const SERVICES_INTRO = {
+  title: "Everything a brand needs. One studio.",
+  text: "The brand, the website, the store and the tools behind them, made by one team in Mumbai. The people who design it are the people who build it.",
+};
 
 export const SERVICES = [
   {
     no: "01",
-    title: "Website Design & Development",
-    short: "Websites",
-    text: "Designed and built by the same team, with scroll-led motion in GSAP and Next.js, and set up for Google and AI search before launch.",
-    tags: ["Mood boarding", "UI/UX Design", "Front & Back End", "Responsive Design", "Performance & Security"],
+    title: "Websites",
+    kicker: "Websites worth stopping for",
+    tagline: "Moves like a story. Loads like nothing.",
+    text: "Designed and built as one, by the same team. Scroll-led motion in GSAP and Next.js, planned with the page from the start, and every site set up for Google and AI search before go-live.",
+    tags: ["Design", "Development", "Scroll and motion", "SEO and AI search", "Testing", "Hosting and care"],
+    metrics: [
+      { value: "< 1.6s", label: "Load time" },
+      { value: "94", label: "PageSpeed Insights" },
+    ],
+    type: "Website",
   },
   {
     no: "02",
-    title: "Custom Software Development",
-    short: "Software",
-    text: "Custom CMS, dashboards and internal tools, mapped screen by screen and built in stages your team can actually use.",
-    tags: ["Content Architecture", "Headless CMS", "Admin Dashboards", "Custom Workflows", "Scalable Systems"],
+    title: "eCommerce",
+    kicker: "Commerce that earns the cart",
+    tagline: "Stores built to sell. And to look like you.",
+    text: "Stores that sell like the brand, not like a theme. Custom Shopify builds or Zcom, our own commerce platform, with every template designed, payments connected and test orders placed before go-live.",
+    tags: ["Shopify", "Zcom", "Checkout", "Indian payments", "AI coach"],
+    metrics: [
+      { value: "80+", label: "Online stores launched" },
+      { value: "+350%", label: "Revenue growth, YoY" },
+    ],
+    type: "eCommerce",
   },
   {
     no: "03",
-    title: "eCommerce Solutions",
-    short: "eCommerce",
-    text: "Custom Shopify builds or Zcom, our own commerce platform. Templates designed, payments connected and test orders placed before launch.",
-    tags: ["Store Strategy", "UX-Led Design", "Payment & Checkout", "Platform Development", "Scalable Infrastructure"],
+    title: "Software and tools",
+    kicker: "Software shaped to the business",
+    tagline: "Built around how you work.",
+    text: "Built around how your team already works. A custom CMS, dashboard or internal tool, mapped screen by screen with you, then built in stages you can try as we go.",
+    tags: ["Custom CMS", "Dashboards", "Internal tools", "Headless", "Access by role"],
+    metrics: [
+      { value: "< 220ms", label: "API response time" },
+      { value: "100%", label: "Role-based access coverage" },
+    ],
+    type: "Software",
   },
   {
     no: "04",
-    title: "Branding, Marketing & SEO",
-    short: "Brand",
-    text: "Identity across logo, colour, type and voice, plus social, campaigns and monthly SEO that compounds.",
-    tags: ["Brand Identity", "Visual Systems", "Digital Marketing", "SEO Strategy", "Growth Optimisation"],
+    title: "Branding, marketing and SEO",
+    kicker: "Found first. Remembered longer.",
+    tagline: "Be found. Be remembered.",
+    text: "Seen, found, remembered. A full identity with logo, colour, type and voice, then social, campaigns and SEO, run every month by the team that made it.",
+    tags: ["Identity", "Social and content", "Campaigns", "SEO and AI search", "Growth"],
+    metrics: [
+      { value: "+58%", label: "Brand recall lift" },
+      { value: "+72%", label: "Organic visibility" },
+    ],
+    type: "Branding, marketing & SEO",
   },
 ];
+
+export const WORK_INTRO = {
+  title: "Thoughtful design. Technology that holds.",
+  text: "Brands, websites and online stores, designed and built by one team. The people who sketch your idea are the people who launch it, so nothing gets lost along the way. A few we're proud of.",
+};
 
 export const CASES = [
   {
     id: "rpsg",
-    client: "RPSG Media",
-    title: "Three icons, one publishing engine.",
-    sector: "Media & Publishing",
-    text: "The India editions of The Hollywood Reporter, Esquire and Robb Report, launched on a custom CMS with a unified backend and a bespoke website for each title.",
-    scope: ["Custom CMS", "Website Design & Dev", "Editorial Workflows", "Scalable Backend"],
+    client: "RPSG Lifestyle Media",
+    year: "2025",
+    sector: "Publishing group, magazine",
+    title: "Three titles, one custom platform.",
+    text: "The Hollywood Reporter India, Esquire India and Robb Report India on one platform we built. Editors publish news, reviews, galleries and video from one dashboard, and it stays fast on box-office Fridays.",
     metrics: [
-      { value: "500+", label: "Editors publishing" },
-      { value: "3M+", label: "Monthly readers" },
-      { value: "#1", label: "Category rank in 12 months" },
+      { value: "3M+", label: "Readers a month" },
+      { value: "500+", label: "Editors on the platform" },
+      { value: "+45%", label: "Reader retention" },
     ],
-    images: ["/images/work/rpsg-2.jpg", "/images/work/rpsg-1.jpg", "/images/work/rpsg-3.jpg"],
+    cover: "/images/work/rpsg-1.jpg",
+    hover: "/images/work/rpsg-2.jpg",
   },
   {
     id: "manifest",
     client: "Manifest",
-    title: "Five years of SEO, moved without a scratch.",
-    sector: "Digital Publishing",
-    text: "A migration from a restrictive WordPress setup to a fully custom platform, preserving every URL, ranking and media asset along the way.",
-    scope: ["Custom CMS", "WordPress Migration", "Website Design & Dev", "SEO Preservation"],
+    year: "2025",
+    sector: "Luxury wedding magazine",
+    title: "Five years of content, zero downtime.",
+    text: "Moved off WordPress onto a custom CMS. Every article, image and URL carried over, so no search ranking was lost, and issues, black books and guides go up without a developer.",
     metrics: [
-      { value: "200%", label: "Traffic growth post-launch" },
-      { value: "0", label: "Downtime, broken links, data lost" },
-      { value: "5 yrs", label: "Of SEO authority preserved" },
+      { value: "200%", label: "More traffic after launch" },
+      { value: "0", label: "Minutes of downtime" },
+      { value: "+38%", label: "Returning readers" },
     ],
-    images: ["/images/work/manifest-2.jpg", "/images/work/manifest-1.jpg", "/images/work/manifest-3.jpg"],
+    cover: "/images/work/manifest-1.jpg",
+    hover: "/images/work/manifest-2.jpg",
   },
   {
     id: "skf",
     client: "Salman Khan Films",
+    year: "2026",
+    sector: "Film production house",
     title: "Cinematic, and built to outlast the trend.",
-    sector: "Film & Entertainment",
-    text: "A premium showcase for one of Bollywood's most recognised production houses. Restrained, cinematic and still current years after launch.",
-    scope: ["Creative Direction", "Website Design & Dev", "Motion & Interaction", "Responsive Frontend"],
+    text: "A premium showcase for one of Bollywood's most recognised production houses. Restrained, cinematic, and ready for the traffic of a film launch.",
     metrics: [
-      { value: "∞", label: "Film cycles, zero redesigns" },
       { value: "100%", label: "Custom, no templates" },
       { value: "1", label: "Timeless digital stage" },
     ],
-    images: ["/images/work/skf-2.jpg", "/images/work/skf-1.jpg", "/images/work/skf-3.jpg"],
+    cover: "/images/work/skf-1.jpg",
+    hover: "/images/work/skf-2.jpg",
   },
   {
     id: "deveshe",
     client: "Deveshe Dreams",
+    year: "2025",
+    sector: "Handcrafted fashion label",
     title: "Commerce shaped around scarcity.",
-    sector: "Fashion eCommerce",
-    text: "A proprietary store for limited, handcrafted collections, with drops, pre-orders, real-time inventory and production workflows in one backend.",
-    scope: ["Custom eCommerce", "Storefront Design & Dev", "Inventory Systems", "Automation"],
+    text: "A proprietary store for limited, handcrafted collections, with drops, pre-orders and real-time inventory in one backend.",
     metrics: [
-      { value: "350%", label: "Revenue growth, YoY" },
-      { value: "165%", label: "Traffic growth" },
-      { value: "↑", label: "AOV and repeat customers" },
+      { value: "+350%", label: "Revenue growth, YoY" },
+      { value: "+165%", label: "Traffic growth" },
+      { value: "↑", label: "Order value and repeat buyers" },
     ],
-    images: ["/images/work/deveshe-2.jpg", "/images/work/deveshe-1.jpg", "/images/work/deveshe-3.jpg"],
+    cover: "/images/work/deveshe-1.jpg",
+    hover: "/images/work/deveshe-2.jpg",
   },
 ];
 
 export const MORE_WORK = [
-  { name: "Disrptve", year: "2025", type: "Marketing Agency" },
-  { name: "Studio Akto", year: "2025", type: "Interior Design Studio" },
-  { name: "Bro's Moving", year: "2026", type: "Moving & Logistics" },
-  { name: "I White Korea", year: "2024", type: "Korean Beauty Essentials" },
+  { name: "Disrptve", year: "2025", type: "Marketing agency" },
+  { name: "Studio Akto", year: "2025", type: "Interior design studio" },
+  { name: "Bro's Moving", year: "2026", type: "Moving and logistics" },
+  { name: "I White Korea", year: "2024", type: "Korean beauty essentials" },
+  { name: "Point Of", year: "2025", type: "Brand consultancy" },
+  { name: "Nahara", year: "2026", type: "Fine jewellery" },
+  { name: "25 Rupiya Production", year: "2026", type: "AI film production house" },
+  { name: "Shivdutt Das Art Foundation", year: "2025", type: "Art foundation" },
 ];
 
+// level = how full the column sits in the liquid chart.
 export const STATS = [
-  { value: 200, suffix: "+", label: "Websites shipped by the team" },
-  { value: 100, suffix: "+", label: "Brands built since 2022" },
-  { value: 3, suffix: "M+", label: "Monthly readers on platforms we built" },
-  { value: 350, suffix: "%", label: "YoY revenue growth for Deveshe Dreams" },
-];
-
-export const PILLARS = [
-  {
-    key: "Vision",
-    text: "Design and technology as one unified system. Experiences that are visually compelling and structurally intelligent, where every interaction is purposeful, scalable and built to last.",
-  },
-  {
-    key: "Mission",
-    text: "Designing and building systems that unify creativity and engineering. Solutions that are precise, scalable and performance-driven, executed with clarity and structure.",
-  },
-  {
-    key: "Philosophy",
-    text: "Design is a system: structured, intentional and built to scale. We simplify complexity into outcomes that are clear, precise and purposeful. Every element exists with reason.",
-  },
-  {
-    key: "Approach",
-    text: "Every project is a system, interconnected and designed to scale. We prioritise clarity over excess, crafting solutions that are efficient, impactful and adaptable across contexts.",
-  },
-];
-
-// 5x5 pixel glyphs, in the spirit of the brand elements sheet.
-export const VALUES = [
-  { name: "Creativity", glyph: "0110011110001101111001010" },
-  { name: "Efficiency", glyph: "1110000110011100011010011" },
-  { name: "Entertainment", glyph: "0101011111010101111101010" },
-  { name: "Empathy", glyph: "0010001110111110111000100" },
+  { kicker: "Since", value: 2022, from: 1990, suffix: "", label: "Founded in Mumbai", level: 0.4 },
+  { kicker: "Clients", value: 100, suffix: "+", label: "Brands built since 2022", level: 0.62 },
+  { kicker: "Shipped", value: 200, suffix: "+", label: "Websites and products", level: 0.86 },
+  { kicker: "Commerce", value: 80, suffix: "+", label: "Online stores", level: 0.52 },
+  { kicker: "Under one roof", text: "One", suffix: "", label: "Team for design, build and marketing", level: 0.97 },
 ];
 
 export const PROCESS = [
@@ -205,6 +233,11 @@ export const ZCOM = {
   ],
 };
 
+export const CLIENTS_INTRO = {
+  title: "The company we keep.",
+  text: "Publishers, film houses, fashion labels and founders on their first launch. More than 100 brands since 2022.",
+};
+
 // ratio = logo width / height, used to size logos to a similar visual weight.
 export const CLIENTS = [
   { name: "The Hollywood Reporter India", file: "hollywood-reporter", ratio: 3.56 },
@@ -219,7 +252,7 @@ export const CLIENTS = [
   { name: "Mad Earth", file: "mad-earth", ratio: 1.24 },
   { name: "RPSG Media", file: "rpsg-media", ratio: 2.09 },
   { name: "Studio Akto", file: "studio-akto", ratio: 1.65 },
-  { name: "Hefty.art", file: "hefty-art", ratio: 7.55 },
+  { name: "Hefty Art", file: "hefty-art", ratio: 7.55 },
   { name: "Nahara", file: "nahara", ratio: 6.0 },
   { name: "Shivdutt Das Art Foundation", file: "sdaf", ratio: 2.35 },
   { name: "Reside in Being", file: "reside-being", ratio: 11.1 },
